@@ -24,7 +24,7 @@ var Game = {
 		this.maxEnemies = 6;
 		this.enemiesAlive = 0;
 		this.currentFrame = 0;
-		this.maxLives = 3;
+		this.maxLives = 100;
 		this.life = 0;
 		this.binding();
 		this.player = new Player();
@@ -270,10 +270,26 @@ var Bullet = function(x){
 	this.vy = 8;
 	this.index = Game.bulletIndex;
 	this.active = true;
-	this.color = "white";
-	
 };
-
+var randomVariable = [1,2,3,4,5,6,7]
+if (randomVariable == 1) {
+	this.color = "white";
+}
+else if (randomVariable == 2) {
+	this.color = "red";
+}
+else if (randomVariable == 3) {
+	this.color = "blue";
+}
+else if (randomVariable == 4) {
+	this.color = "yellow";
+}
+else if (randomVariable == 5) {
+	this.color = "orange";
+}
+else {
+	this.color = "purple";
+}
 
 Bullet.prototype.draw = function(){
 	Game.ctx.fillStyle = this.color;
@@ -315,7 +331,7 @@ Enemy.prototype.draw = function(){
 	Game.ctx.fillRect(this.x, this.y, this.width, this.height);
 };
 
-
+var enemylife = 1;
 Enemy.prototype.update = function(){
 	if(this.movingLeft){
 		if(this.x > 0){
@@ -336,8 +352,16 @@ Enemy.prototype.update = function(){
 	for(var i in Game.bullets){
 		var currentBullet = Game.bullets[i];
 		if(Game.collision(currentBullet, this)){
-			this.die();
+			//if enemy life is < 0 = reset the life using an external function
+			enemylife--;
+			if(enemylife == 0) {
+				this.die();
+			}
 			delete Game.bullets[i];
+			if (enemylife < 0) {
+				enemylife = 1;
+			}
+			
 		}
 	} 
 };
@@ -353,7 +377,6 @@ Enemy.prototype.die = function(){
   		new Enemy();
 	  }, 2000);
 	}
-  
 };
 
 Enemy.prototype.explode = function(){
