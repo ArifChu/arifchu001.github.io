@@ -139,8 +139,13 @@ function Platform() {
 	//3: Breakable (Go through)
 	//4: Vanishable 
 	//Setting the probability of which type of platforms should be shown at what score
-	if (score >= 100) this.types = [1, 3];
-	else this.types = [1];
+	if (score >= 100) {
+		this.types = [1, 2, 3, 4];
+	}
+	//The Chances of Monsters Spawning in!!!
+	var mobSpawn = [1,2,3,4]
+	if (mobSpawn == 1) 
+
 
 	this.type = this.types[Math.floor(Math.random() * this.types.length)];
 
